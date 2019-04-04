@@ -1,0 +1,34 @@
+<%@ include file="THeader.html"%>
+
+
+
+<div id="body" class="width">
+			<section id="content" class="two-column with-right-sidebar">
+<font size="+2" color="ff6600"><strong>Welcome to TimeServer</font>
+	<br><br>		
+<table align="center"><tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="image/arch.png" width=500 height=540></td></tr></table><br><br><br>			
+
+<br><br><br><br><br><br>
+
+		
+			</article>
+			</section>
+			<aside class="sidebar big-sidebar right-sidebar">
+		
+		<br><br><br><br><br><br><br><br><br>
+		
+
+       
+		</aside>
+    	<div class="clear"></div>
+    </div>
+  
+</div>
+</body><br><br><br><br><br><br><br><br><br><br>
+   
+
+
+
+
+<%@ include file="Footer.html"%>

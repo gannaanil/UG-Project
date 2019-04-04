@@ -1,0 +1,72 @@
+<%@ include file="OHeader.html"%>
+
+
+
+<%! int i=0;%>
+<%@ page  import="java.sql.*,databaseconnection.databasecon"%>
+<% 
+	Connection con=null;
+	Statement st=null;
+	ResultSet rs=null;
+	
+	try
+	{
+
+	   con=databasecon.getconnection();
+	    st=con.createStatement();
+		ResultSet r=st.executeQuery("select max(fid) from encfile");
+		if(r.next())
+		{
+			i=r.getInt(1);
+			System.out.println("i="+i);
+			if(i>=0){
+				i++;
+				System.out.println("i1="+i);
+			}
+		}
+	}catch(Exception e){
+		e.printStackTrace();}
+		%>
+
+
+<br><br>
+<%
+if(request.getParameter("msg")!=null){
+			out.println("<script>alert('Data Upload in Cloud Successfully')</script>");
+		
+}%>
+<h2><font size="" color="ff6600">FileUploading...</font></h2>
+<center>
+
+<table>
+<form  method="post" action="upload1.jsp"   enctype="multipart/form-data">
+<tr><td> <h3><font size="" color="ff6600"></font></h3></td></tr>
+<tr>
+
+      
+      
+	<td><strong>File Id</strong></td>
+	<td><input type="text" name="fid" value=<%=i%>></td>
+	<td></td>
+</tr>
+<tr>
+	<td><strong>Select File</strong></td>
+	<td><input type="file" name="filename"></td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td><input type="submit" value="Continue"></td>
+	<td></td>
+</tr>
+</form>
+</table>
+
+<br><br><br><br>	
+
+<div class="clear"></div>
+    </div>
+  
+</div>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>	
+<%@ include file="Footer.html"%>

@@ -1,0 +1,95 @@
+<%@ include file="OHeader.html"%>
+  
+<%@ page import="java.io.*"%>
+<%! int i=0;
+int pkey=0;
+%>
+<%!String  thisLine = null;
+StringBuffer sb1=null;
+String filename=null,fid=null,fnm=null,fnm1=null,unm,time=null;
+%>
+<%@ page  import="java.sql.*,databaseconnection.databasecon"%>
+<% 
+	Connection con=null;
+	Statement st=null,st1=null,st2=null;
+	ResultSet rs=null,rs1=null;
+	String fid = request.getParameter("fid");
+	String unm=(String)session.getAttribute("unm");
+		String pkey = request.getParameter("pkey");
+String fnm= request.getParameter("fnm");
+String atrbt=request.getParameter("atrbt");
+StringBuffer fdata=(StringBuffer)session.getAttribute("fdata");
+
+
+	try
+	{
+	   con=databasecon.getconnection();
+	    st=con.createStatement();
+		st1=con.createStatement();
+st2=con.createStatement();
+ rs=st1.executeQuery("select unm from user ");
+		rs1=st2.executeQuery("select *from time1");
+		if(rs1.next()){
+			time=rs1.getString(1);
+		}
+	}catch(Exception e){
+		e.printStackTrace();}
+		%>
+
+
+
+ 
+
+<br><br>
+<h2><font size="" color="ff6600">FileUploading...</font></h2>
+<center>
+<table>
+<tr><td> <h3><font size="" color="ff6600"></font></h3></td></tr>
+<tr>
+
+      <form  method="post"action="encrypt.jsp">
+      
+	<td><strong>File Id</strong></td>
+	<td><input type="text" name="fid" value=<%=Integer.parseInt(fid)%>></td>
+	<td></td>
+</tr>
+<tr>
+	<td><strong>File Name</strong></td>
+	<td><input type="text" name="fnm" value=<%=fnm%>></td>
+	<td></td>
+</tr>
+<tr>
+	<td><strong>File Data ( M )</strong></td>
+	<td><textarea name="data" cols="30" rows="10"><%=fdata%></textarea></td>
+	<td></td>
+</tr>
+<tr>
+	<td><strong>Public Key  ( params )</strong></td>
+	<td><input type="text" name="pkey" value=<%=pkey%>></td>
+	<td></td>
+</tr>
+<tr>
+	<td><strong>Attribute Set ( S )</strong></td>
+	<td><input type="text" name="atrbt" value=<%=atrbt%>></td>
+	
+	<td></td>
+</tr>
+<td><strong>TimeIntervals ( TS )</strong></td>
+	<td><input type="text" name="time" value=<%=time%> ></td>
+	
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td><input type="submit" value="Encrypt"></td>
+	<td></td>
+</tr>
+
+</table>
+</form>
+<div class="clear"></div>
+    </div>
+  
+</div>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>	
+<%@ include file="Footer.html"%>

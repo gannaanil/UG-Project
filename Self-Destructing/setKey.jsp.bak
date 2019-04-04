@@ -1,0 +1,23 @@
+<%@ page  import="java.sql.*,databaseconnection.databasecon"%>
+<% 
+	Connection con=null;
+	Statement st=null,st1=null;
+	ResultSet rs=null;
+	//String fid = request.getParameter("fid");
+	String unm=request.getParameter("unm");
+//StringBuffer fdata=(StringBuffer)session.getAttribute("fdata");
+Random r=new Random();
+int skey=r.nextInt(1000000);
+try
+	{
+	   con=databasecon.getconnection();
+	    st=con.createStatement();
+		int i=st.executeUpdate("update  user  set skey ="+skey+" where unm='"+unm+"' ");
+		if(i>0){
+			response.sendRedirect("keyGen.jsp?msg=sent");
+		}
+	}catch(Exception e){
+		e.printStackTrace();}
+		%>
+	
+

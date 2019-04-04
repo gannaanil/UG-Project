@@ -1,0 +1,156 @@
+<%@ include file="OHeader.html"%>
+  
+<%@ page import="java.io.*"%>
+<%! int i=0;%>
+<%!String  thisLine = null;
+StringBuffer sb1=null;
+String filename=null,pkey=null,fid=null,fnm=null,fnm1=null,unm;
+%>
+<%@ page  import="java.sql.*,databaseconnection.databasecon"%>
+<% 
+	Connection con=null;
+	Statement st=null;
+	ResultSet rs=null;
+	
+	try
+	{
+	   con=databasecon.getconnection();
+	    st=con.createStatement();
+		ResultSet r=st.executeQuery("select max(fid) from encfile");
+		if(r.next())
+		{
+			i=r.getInt(1);
+			System.out.println("i="+i);
+			if(i>=0){
+				i++;
+				System.out.println("i1="+i);
+			}
+		}
+	}catch(Exception e){
+		e.printStackTrace();}
+		%>
+
+
+
+ <% 
+ String unm=(String)session.getAttribute("unm");
+ java.util.Enumeration e = request.getParameterNames();
+ boolean b=e.hasMoreElements();
+ System.out.println("b="+b);
+ while(e.hasMoreElements()){
+         // String e=names.nextElement();
+		   String name = (String)e.nextElement();  
+		   System.out.println("nm="+name);
+       
+       if(name.equals("filename")) { 
+		   filename = (request.getParameter(name).toString()).trim(); 
+		   System.out.println("fnm="+filename);
+	   }
+	   if(name.equals("fid")) { 
+		   fid = (request.getParameter(name).toString()).trim(); 
+		   System.out.println("fid="+fid);
+	   }
+	   if(name.equals("fnm")) { 
+		   fnm1 = (request.getParameter(name).toString()).trim(); 
+		   System.out.println("fnm1="+fnm1);
+	   }
+		  //if(
+        }
+
+
+	   String saveFile="";
+//String contentType=request.getAttribute("file");
+String contentType = request.getContentType();
+System.out.println("cnt="+contentType);
+if((contentType != null)&&(contentType.indexOf("multipart/form-data") >= 0)){
+DataInputStream in = new DataInputStream(request.getInputStream());
+int formDataLength = request.getContentLength();
+byte dataBytes[] = new byte[formDataLength];
+int byteRead = 0;
+int totalBytesRead = 0;
+while(totalBytesRead < formDataLength){
+byteRead = in.read(dataBytes, totalBytesRead,formDataLength);
+totalBytesRead += byteRead;
+}
+String file = new String(dataBytes);
+saveFile = file.substring(file.indexOf("filename=\"") + 10);
+saveFile = saveFile.substring(0, saveFile.indexOf("\n"));
+saveFile = saveFile.substring(saveFile.lastIndexOf("\\") + 1,saveFile.indexOf("\""));
+int lastIndex = contentType.lastIndexOf("=");
+String boundary = contentType.substring(lastIndex + 1,contentType.length());
+int pos;
+pos = file.indexOf("filename=\"");
+pos = file.indexOf("\n", pos) + 1;
+pos = file.indexOf("\n", pos) + 1;
+pos = file.indexOf("\n", pos) + 1;
+int boundaryLocation = file.indexOf(boundary, pos) - 4;
+int startPos = ((file.substring(0, pos)).getBytes()).length;
+int endPos = ((file.substring(0, boundaryLocation)).getBytes()).length;
+File ff = new File(saveFile);
+FileOutputStream fileOut = new FileOutputStream(ff);
+fileOut.write(dataBytes, startPos, (endPos - startPos));
+fileOut.flush();
+fileOut.close();
+File f=new File(saveFile);
+System.out.println("f="+f);
+FileInputStream fis=new FileInputStream(saveFile);
+
+System.out.println("f1="+fis);
+session.setAttribute("fis",fis);
+ fnm=f.getName();
+         // open input stream test.txt for reading purpose.
+		 try{
+         BufferedReader br = new BufferedReader(new FileReader(f));
+		 StringBuffer sb=new StringBuffer();
+         while ((thisLine = br.readLine()) != null) {
+          //  System.out.println(thisLine);
+			
+                sb1=sb.append(thisLine);
+				System.out.println("sb1="+sb1);
+				//System.out.println(sb1);
+         }} catch(Exception e1){
+		 }
+		 //pkey=(String)session.getAttribute("pkey");
+// fid=(String)session.getAttribute("fid");
+session.setAttribute("path",saveFile);
+ //String eid=(String)session.getAttribute("eid");
+ //System.out.println("eid1="+eid);
+}
+session.setAttribute("fdata",sb1);
+%>
+
+<br><br>
+<h2><font size="" color="ff6600">FileUploading...</font></h2>
+<center>
+<table>
+<tr><td> <h3><font size="" color="ff6600"></font></h3></td></tr>
+<tr>
+
+      <form  method="post"action="upload3.jsp">
+      
+	<td ><strong>File Id</strong></td>
+	<td><input type="text" name="fid" value=<%=i%>></td>
+	<td></td>
+</tr>
+<tr>
+	<td><strong>File Name</strong></td>
+	<td><input type="text" name="fnm" value=<%=fnm%>></td>
+</tr>
+<tr>
+	<td align="center">File Data ( M )</strong></td>
+	<td><textarea name="data" cols="22" rows="7"><%=sb1%></textarea></td>
+</tr>
+<tr>
+	<td><strong>Public Key</strong></td>
+	<td><input type="text" name="pkey" ><a href="reqKey.jsp?unm=<%=unm%>&fnm=<%=fnm%>&fid=<%=i%>">Req-PublicKey</a></td>
+	<td></td>
+</tr>
+</table>
+</form>
+
+<div class="clear"></div>
+    </div>
+  
+</div>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>	
+<%@ include file="Footer.html"%>

@@ -1,0 +1,75 @@
+<%@ page import="java.sql.*"%>
+
+
+<%@ page  import="java.sql.*,java.util.*" import="databaseconnection.*" import="javax.swing.JOptionPane"%>
+
+
+
+<%! String name, lname, addr, city, state, zip, tele, email, un, pwd,role,cname;
+	int i=0,salary=0;
+%>
+<%
+/* try{
+Connection con = databasecon.getconnection();
+
+Statement st=con.createStatement();
+ResultSet rs=st.executeQuery("select max(id) from register");
+if(rs.next())
+{
+	i=rs.getInt(1);
+	++i;
+}
+}
+catch(Exception e){
+System.out.println("Exception Occured");} */
+
+name=request.getParameter("name");
+
+//addr=request.getParameter("addr");
+//city=request.getParameter("city");
+//state=request.getParameter("state");
+ //zip=request.getParameter("zip");
+tele=request.getParameter("mno");
+ email=request.getParameter("email");
+un=request.getParameter("unm");
+pwd=request.getParameter("pwd");
+cname=request.getParameter("cnm");
+role=request.getParameter("role");
+
+ 
+//System.out.println(pwd);
+%>
+<%! int rid=0;%>
+<%
+try{
+Random r=new Random();
+int mkey=r.nextInt(100000);
+Connection con = databasecon.getconnection();
+Statement st=con.createStatement();
+Statement st1=con.createStatement();
+
+ResultSet rr=st1.executeQuery("select max(rid) from user");
+if(rr.next()){
+
+rid=rr.getInt(1);
+if(rid>=0)
+	{
+	rid++;
+	}
+}
+
+int q= st.executeUpdate("insert into user (rid,name,unm,pwd,company,mno,role)values("+rid+",'"+name+"','"+un+"','"+pwd+"','"+cname+"','"+email+"','"+tele+"','"+role+"')");
+
+if(q>0)
+{
+	//st.executeUpdate("insert into user1 values("+rid+",'"+un+"', '"+pwd+"','"+cname+"',"+salary+","+mkey+")");
+	response.sendRedirect("register2.jsp?msg='success'");
+	//response.sendRedirect("register.jsp?message=succ");
+}
+
+}
+catch(Exception e)
+{
+e.printStackTrace();
+	}
+%>

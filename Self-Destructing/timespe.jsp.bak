@@ -1,0 +1,93 @@
+<%@ include file="THeader.html"%>
+<%! int i=0;
+Connection con=null;
+%>
+<%@ page  import="java.sql.*,databaseconnection.databasecon"%>
+
+
+
+<br><br>
+
+<center>
+
+
+<%@ page import="java.io.*"%>
+<%!String  thisLine = null;
+StringBuffer sb1=null;
+String rid=null;
+String data=null,fid1=null,fname1=null,eid=null,cname=null,cnm=null;
+Blob b1=null;
+byte b[]=null;
+%>
+
+ <%  
+
+// -->
+try{
+
+//Statement st=con.createStatement();
+  con=databasecon.getconnection();
+Statement st1=con.createStatement();
+Statement st2=con.createStatement();
+Statement st=con.createStatement();
+Statement st3=con.createStatement();
+
+%><br><font size="+2" color="ff6600"><strong>Setup (1k, U )</font><br><br><table align="center" border="4" bordercolor="orange" cellpadding="20" cellspacing="10">
+<tr>
+	<th><font color="003399" size="" ><strong>UserName</strong></th>
+	<th><font color="003399" size="3" ><strong>Time Intervals</strong></th>
+	
+</tr>
+
+<%
+if(request.getParameter("msg1")!=null){
+			out.println("<script>alert('Time Interval Sent to DataUser')</script>");
+			//response.sendRedirect("timespe.jsp?msg=sent");
+		}
+
+if(request.getParameter("msg")!=null){
+			out.println("<script>alert('Time Interval Sent to DataOwner')</script>");
+			//response.sendRedirect("timespe.jsp?msg=sent");
+		}
+
+
+Statement st4=con.createStatement();
+					 ResultSet r3=st3.executeQuery("select *from time");
+					 if(r3.next())
+		                 {
+                       ResultSet r4=st4.executeQuery("select *from owner where unm='"+r3.getString(1)+"' ");
+					 if(r4.next())
+		                 {
+                    	 %>
+                          <td><font size="4" color="339900"><strong><%=r3.getString(1)%></td>
+	<td><font size="4" color="339900"><strong><a href="view1.jsp?unm=<%=r3.getString(1)%>">View</td></td></tr>
+	<%}
+	else{%>
+	                     <td><font size="4" color="339900"><strong><%=r3.getString(1)%></td>
+	<td><font size="4" color="339900"><strong><a href="uview1.jsp?unm=<%=r3.getString(1)%>">View</td></td></tr>               
+	  <%      }
+				
+       %></table>
+<%}
+}catch(Exception e){
+	e.printStackTrace();
+}
+
+%>
+
+<tr>
+	<!-- <td><strong>File Name</strong></td><td></td>
+	<td><input type="text" name="fnm"></td>
+	<td></td> -->
+</tr>
+
+<tr>
+	<td></td><td></td>
+	
+	<td></td>
+</tr>
+</form>
+</table>
+
+<br><br><br><br>	
+<%@ include file="Footer.html"%>

@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>A secure data self-destructing scheme in cloud computing</title>
+<link rel="stylesheet" href="css/reset.css" type="text/css" />
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+<link rel="stylesheet" href="css/styles.css" type="text/css" />
+<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/slider.js"></script>
+<script type="text/javascript" src="js/superfish.js"></script>
+<script type="text/javascript" src="js/custom.js"></script>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+</head>
+<body>
+<div id="container" class="width">
+    <header> 
+	<div class="width">
+ 
+
+<nav><ul class="sf-menu dropdown">
+	
+        			<li >
+					<a href="index.html"><i class="fa fa-home"></i> Home</a></li>
+            			
+						<li>
+					
+					<a href="owner.jsp"><i ></i>DataOwner</a>
+        			</li>
+	     			<li>
+					<a href="user.jsp"><i ></i>DataUsers</a></li>
+				<li>
+					
+				<a href="authority.jsp"><i ></i> Authority</a>
+            			</li>
+				<li><a href="time.jsp"><i ></i>TimeServer</a></li>
+				<li><a href="csp.jsp"><i ></i>CloudServers</a></li>
+  <li><a href="adv.jsp"></i>Adversary</a></li>
+						  
+				</ul>			
+			
+				<div class="clear"></div>
+    		</nav>
+       	</div>
+	<div class="clear"></div>
+    </header>
+    <div id="intro">
+	<div class="width">
+		<div class="intro-content">
+                   
+		<h2>A secure data self-destructing scheme in cloud computing </h2>
+          </div>
+            </div>
+	</div>
+
+			<div id="body" class="width">
+			<section id="content" class="two-column with-right-sidebar">
+		<br><br><br>
+		<table align="center"><tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="image/arch.png" width=500 height=540></td></tr></table><br><br><br>
+			</article>
+			</section>
+			<aside class="sidebar big-sidebar right-sidebar">
+
+		<br><br><br><br><br><br><br><br><br>
+       
+		</aside>
+    	<div class="clear"></div>
+    </div>
+  
+</div>
+</body><br><br><br><br><br><br><br><br><br><br>
+   <footer>
+     
+             <br /><br />
+<div class="social-icons">
+<a href="#"><i class="fa fa-facebook fa-2x"></i></a>
+<a href="#"><i class="fa fa-twitter fa-2x"></i></a>
+<a href="#"><i class="fa fa-youtube fa-2x"></i></a>
+<a href="#"><i class="fa fa-instagram fa-2x"></i></a>
+</div>
+</li>
+</ul>
+<!-- <div class="clear"></div>
+        </div> -->
+        <div class="footer-bottom">
+            <p>&copy; YourSite 2015. <a href="http://www.cloudstechnologies.in">IEEE-2015 Project </a> by Cloud Technologies</p>
+         </div>
+    </footer>
+
+</html>

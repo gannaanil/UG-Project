@@ -1,0 +1,84 @@
+<%@ include file="AHeader.html"%>
+
+
+
+
+<%@ page  import="java.sql.*,databaseconnection.databasecon"%>
+<%! int i=0;
+Connection con=null;
+%>
+
+
+
+<br><br><br><br>
+
+<center>
+
+
+<%@ page import="java.io.*"%>
+<%!String  thisLine = null;
+StringBuffer sb1=null;
+String rid=null;
+String data=null,fid1=null,fname1=null,eid=null,cname=null,cnm=null,mkey=null;
+Blob b1=null;
+byte b[]=null;
+%>
+
+ <%  
+
+// -->
+
+
+//Statement st=con.createStatement();
+  con=databasecon.getconnection();
+Statement st1=con.createStatement();
+ fid1=request.getParameter("fid");
+String atrbt=request.getParameter("atrbt");
+String abt[]=atrbt.split(",");
+String at=abt[0]+" OR "+ abt[1] + " AND "+ abt[2];
+ResultSet r=st1.executeQuery("select mkey from encfile where fid='"+fid1+"'");
+if(r.next()){  mkey=r.getString(1);}
+
+%>
+<br><br>
+<h2>Time Intervals</h2>
+<center>
+
+<table>
+<form  method="post" action="setKey.jsp"  >
+<tr><td> <h3><font size="" color="ff6600"></font></h3></td></tr>
+<tr>
+
+      
+      
+	<td><strong>User ID:</strong></td>
+	<td><input type="text" name="unm" value=<%=request.getParameter("unm")%> ></td>
+	<td></td>
+</tr>
+<tr>
+	<!-- <td><strong>File Name</strong></td><td></td>
+	<td><input type="text" name="fnm"></td>
+	<td></td> -->
+</tr>
+<tr>
+	<td><strong>MSK:</strong></td>
+	<td><input type="text" name="msk" value=<%=mkey%>>
+	</td>
+</tr>
+<tr>
+	<td><strong> Access Tree  ( r ):</strong></td>
+	<td><textarea name="at" rows="1" cols="22"><%=at%></textarea>
+	</td></tr>
+<tr>
+	<td><strong>Time Interval ( T ' ):</strong></td>
+	<td><input type="text"  name="time" value=<%=request.getParameter("time")%>></td></tr>
+<tr>
+	<td></td>
+	<td><input type="submit" value="Set  PrivateKey"></td>
+	<td></td>
+</tr>
+</form>
+</table>
+
+<br><br><br><br>	
+<%@ include file="Footer.html"%>

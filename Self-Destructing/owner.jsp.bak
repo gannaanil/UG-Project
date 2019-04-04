@@ -1,0 +1,66 @@
+<%@ include file="Header.html"%>
+<head>
+<script type="javascript/text">
+    var clear = true;
+	alert("hai");
+    function clear(obj)
+    {
+        if(clear)
+        {
+            obj.value = '';
+            clear = false;
+        }
+    }
+</script>
+</head>`
+
+<div id="body" class="width">
+			<section id="content" class="two-column with-right-sidebar">
+			
+<br><br><br><br><br><br>
+<font size="" color=""><h1> Owner Login</h1></font>
+					<table cellspacing=20 align="right" >
+	                  <%
+                                                       String m=request.getParameter("m");
+                                                       if(m!=null && m.equalsIgnoreCase("fail"))
+                                                       {
+                                                               out.println("<font  color='red'><blink><h3>&nbsp;&nbsp;&nbsp;Login Fail   !! </blink></font></h3>");
+                                                       }
+                                               %>
+											   </table>
+
+
+
+<form method="post" action="ologin.jsp" name="fn">
+	<table  cellpadding=5><tr><td>
+
+	<tr><td><input type="text" name="uid" required placeholder="Username"  onfocus='clear(this)'><br>
+		<tr><td><input type="password" name="pwd" required placeholder="Password" size="20" class="cl"><br>
+
+			<tr><td><input class="submit" type="submit"  value="Login" /><a href="oregister2.jsp">SignUp</td></a>
+
+</tr>
+</table>
+</form>						  
+
+		
+			</article>
+			</section>
+			<aside class="sidebar big-sidebar right-sidebar">
+		
+		<br><br><br><br><br><br><br><br><br>
+		
+
+       
+		</aside>
+    	<div class="clear"></div>
+    </div>
+  
+</div>
+</body><br><br><br><br><br><br><br><br><br><br>
+   
+
+
+
+
+<%@ include file="Footer.html"%>

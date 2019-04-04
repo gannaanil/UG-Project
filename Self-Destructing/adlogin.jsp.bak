@@ -1,0 +1,31 @@
+<%@ page  import="java.sql.*,databaseconnection.databasecon"%>
+<% 
+	Connection con=null;
+	Statement st=null;
+	String pass=null,uid=null;
+
+String a = request.getParameter("uid");
+String b= request.getParameter("pwd");
+String name=null,u=null,test2=null;
+	ResultSet rs=null;
+	
+	try
+	{
+	   con=databasecon.getconnection();
+	    st=con.createStatement();
+		
+		if(a.equals("Adversary") && b.equals("Adversary"")) 
+		{
+		//	session.setAttribute("unm",a);
+			response.sendRedirect("adv_home.jsp");
+		
+        }
+	
+	else
+	{
+     	response.sendRedirect("adv.jsp?m=fail");
+	}
+
+		}catch(Exception e){
+		e.printStackTrace();}
+%>

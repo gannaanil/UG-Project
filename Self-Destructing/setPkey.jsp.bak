@@ -1,0 +1,125 @@
+<%@ include file="UHeader.html"%>
+  
+<%@ page import="java.io.*"%>
+<%! int i=0;
+int pkey=0;
+byte b[]=null;
+%>
+<%!String  thisLine = null;
+StringBuffer sb1=null;
+String filename=null,fid=null,fnm=null,fnm1=null,unm,time=null,unm1=null,role=null,cnm=null;
+String atrbt=null;
+%>
+<%@ page  import="java.sql.*,databaseconnection.databasecon"%>
+<% 
+	Connection con=null;
+	Statement st=null,st1=null,st2=null;
+	ResultSet rs=null;
+	String fid = request.getParameter("fid");
+	String time= request.getParameter("time");
+	String atrbt= request.getParameter("atrbt");
+	String unm=(String)session.getAttribute("unm");
+
+try
+	{
+	   con=databasecon.getconnection();
+	    st=con.createStatement();
+
+		int i=st.executeUpdate("insert into keygen values('"+fid+"','"+unm+"','"+time+"','"+atrbt+"')");
+		if(i>0){
+			out.println("<script>alert('Request Sent to  Authority')</script>");
+		}
+	}catch(Exception e){
+		e.printStackTrace();}
+
+
+	try
+	{
+	   con=databasecon.getconnection();
+	    st=con.createStatement();
+
+		ResultSet i=st.executeQuery("select *from time1");
+		if(i.next()){
+time=i.getString(1);
+		}
+st2=con.createStatement();
+ResultSet i1=st2.executeQuery("select  unm,role,company from user where unm='"+unm+"'");
+		if(i1.next()){
+unm1=i1.getString(1);
+role=i1.getString(2);
+cnm=i1.getString(3);
+		}
+ atrbt=unm1+","+cnm+","+role;
+	}catch(Exception e){
+		e.printStackTrace();}
+	
+
+
+	try
+	{
+	   con=databasecon.getconnection();
+	    st=con.createStatement();
+		st1=con.createStatement();
+
+ rs=st1.executeQuery("select fname,data from encfile where fid='"+fid+"' ");
+ if(rs.next()){
+	 b=rs.getBytes(2);
+	 fnm=rs.getString(1);
+ }
+		
+	}catch(Exception e){
+		e.printStackTrace();}
+		%>
+
+
+
+ 
+
+<br><br>
+<h2><font color="ff6600">File Accessing..</font></h2>
+<center>
+<table>
+<tr><td> <h3><font size="" color="ff6600"></font></h3></td></tr>
+<tr>
+
+      <form  method="post"action="compare.jsp">
+      
+	<td><strong></strong></td>
+	<td><input type="hidden" name="fid" value=<%=fid%>></td>
+	<td></td>
+</tr>
+<tr>
+	<td><strong></strong></td>
+	<td><input type="hidden" name="fnm" value=<%=fnm%>></td>
+	<td></td>
+</tr>
+<tr>
+	<td>User ID:</td>
+	<td><input type="text" name="unm" value=<%=unm%>></td>
+	<td></td>
+</tr>
+
+<tr>
+	<td><strong>Time Interval ( T ' )</strong></td>
+	<td><input type="text" name="time" value=<%=time%>></td>
+	
+	<td></td>
+</tr>
+
+<tr>
+	<td><strong>Attribute Set ( r ) </strong></td>
+	<td><input type="text" name="atrbt" value=<%=atrbt%>></td>
+	
+	<td></td>
+</tr>
+<tr>
+	<td><strong>Private Key ( SK )</strong></td>
+	<td><input type="text" name="skey"><a href="getPkey.jsp?unm=<%=unm%>&fid=<%=fid%>&atrbt=<%=atrbt%>&fnm=<%=fnm%>">Get-PrivateKey</a></td>
+	
+	<td></td>
+</tr>
+
+</table>
+</form>
+<br><br><br><br>	
+<%@ include file="Footer.html"%>

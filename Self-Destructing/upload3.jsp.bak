@@ -1,0 +1,84 @@
+<%@ include file="OHeader.html"%>
+  
+<%@ page import="java.io.*"%>
+<%! int i=0;
+int pkey=0;
+%>
+<%!String  thisLine = null;
+StringBuffer sb1=null;
+String filename=null,fid=null,fnm=null,fnm1=null,unm;
+%>
+<%@ page  import="java.sql.*,databaseconnection.databasecon"%>
+<% 
+	Connection con=null;
+	Statement st=null,st1=null;
+	ResultSet rs=null;
+	String fid = request.getParameter("fid");
+	String unm=(String)session.getAttribute("unm");
+		String pkey = request.getParameter("pkey");
+String fnm= request.getParameter("fnm");
+String user= request.getParameter("user");
+String cnm= request.getParameter("cnm");
+String  role= request.getParameter("role");
+String atrbt=user+","+cnm+","+role;
+StringBuffer fdata=(StringBuffer)session.getAttribute("fdata");
+
+	try
+	{
+	   con=databasecon.getconnection();
+	    st=con.createStatement();
+		st1=con.createStatement();
+
+ rs=st1.executeQuery("select unm from user ");
+		
+	}catch(Exception e){
+		e.printStackTrace();}
+		%>
+
+
+
+ 
+
+<br><br>
+<h2><font size="" color="ff6600">FileUploading...</font></h2>
+<center>
+<table>
+<tr><td> <h3><font size="" color="ff6600"></font></h3></td></tr>
+<tr>
+
+      <form  method="post"action="upload3.jsp">
+      
+	<td><strong>File Id</strong></td>
+	<td><input type="text" name="fid" value=<%=Integer.parseInt(fid)%>></td>
+	<td></td>
+</tr>
+<tr>
+	<td><strong>File Name</strong></td>
+	<td><input type="text" name="fnm" value=<%=fnm%>></td>
+	<td></td>
+</tr>
+<tr>
+	<td><strong>File Data ( M )</strong></td>
+	<td><textarea name="data" cols="30" rows="10"><%=fdata%></textarea></td>
+	<td></td>
+</tr>
+<tr>
+	<td><strong>Public Key</strong></td>
+	<td><input type="text" name="pkey" value=<%=pkey%>></td>
+	<td></td>
+</tr>
+<tr>
+	<td><strong>Attribute Set</strong></td>
+	<td><input type="text" name="atrbt" value=<%=atrbt%>><a href="reqTime.jsp?unm=<%=unm%>&fid=<%=fid%>&pkey=<%=pkey%>&atrbt=<%=atrbt%>&fnm=<%=fnm%>"> Req-TimeIntervals</a></td>
+	
+	<td></td>
+</tr>
+
+</table>
+</form>
+<div class="clear"></div>
+    </div>
+  
+</div>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>	
+<%@ include file="Footer.html"%>

@@ -1,0 +1,93 @@
+<%@ include file="ADHeader.html"%>
+<%! int i=0;
+Connection con=null;
+%>
+<%@ page  import="java.sql.*,databaseconnection.databasecon"%>
+
+
+
+<br><br><br><br>
+
+
+
+<% 
+if(request.getParameter("msg")!=null){
+%>
+<font color="red" size=2><strong>Warning, You can not Access this File</strong></font><br><br><br><br>
+<%}
+%>
+<%@ page import="java.io.*"%>
+<%!String  thisLine = null;
+StringBuffer sb1=null;
+String rid=null;
+String data=null,fid1=null,fname1=null,eid=null,cname=null,cnm=null;
+Blob b1=null;
+byte b[]=null;
+%>
+
+ <%  
+
+// -->
+try{
+
+//Statement st=con.createStatement();
+  con=databasecon.getconnection();
+Statement st1=con.createStatement();
+Statement st2=con.createStatement();
+Statement st=con.createStatement();
+Statement st3=con.createStatement();
+
+%><table align="center"  border="4"  bordercolor="orange" cellpadding="20" cellspacing="10">
+<tr>
+	<th><font color="003399" size="" ><strong>File ID</strong></th>
+	<th><font color="003399" size="3" ><strong>File Name</strong></th>
+	<th><font color="003399" size="3" ><strong>Company</strong></th>
+	<th><font color="003399" size="3" ><strong>DataOwner</strong></th>
+	<th><font color="003399" size="3" ><strong>File Data</strong></th>
+	</tr>
+
+<%
+Statement st4=con.createStatement();
+					 ResultSet r3=st3.executeQuery("select *from encfile");
+					 if(r3.next())
+		                 {%>
+                          <td><font size="4" color="339900"><strong><%=r3.getString(1)%></td>
+						  <td><font size="4" color="339900"><strong><%=r3.getString(2)%></td>
+						  <td><font size="4" color="339900"><strong><%=r3.getString(4)%></td>
+						  <td><font size="4" color="339900"><strong><%=r3.getString(8)%></td>
+	<td><font size="4" color="339900"><strong><a href="advView.jsp?fid=<%=r3.getString(1)%>">View Data</td>
+	</td></tr>               
+	  <%      
+
+	}
+				
+                          
+	        
+
+
+	//st4.executeUpdate("delete from temp");
+
+%></table>
+<%
+}catch(Exception e){
+	e.printStackTrace();
+}
+
+%>
+
+<tr>
+	<!-- <td><strong>File Name</strong></td><td></td>
+	<td><input type="text" name="fnm"></td>
+	<td></td> -->
+</tr>
+
+<tr>
+	<td></td><td></td>
+	
+	<td></td>
+</tr>
+</form>
+</table>
+
+<br><br><br><br>	<br><br><br><br><br><br><br><br><br><br>
+<%@ include file="Footer.html"%>

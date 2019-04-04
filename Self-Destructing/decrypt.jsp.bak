@@ -1,0 +1,104 @@
+<%@ include file="UHeader.html"%>
+  
+<%@ page import="java.io.*"%>
+<%! int i=0;
+int pkey=0;
+byte b[]=null;
+%>
+<%!String  thisLine = null;
+StringBuffer sb1=null;
+String filename=null,fid=null,fnm=null,fnm1=null,unm,time=null,unm1=null,role=null,cnm=null;
+String atrbt=null,skey;
+%>
+<%@ page  import="java.sql.*,databaseconnection.databasecon"%>
+<% 
+	Connection con=null;
+	Statement st=null,st1=null,st2=null;
+	ResultSet rs=null,rs1;
+	String fid = request.getParameter("fid");
+	String time= request.getParameter("time");
+	String atrbt= request.getParameter("atrbt");
+	 skey= request.getParameter("skey");
+	String unm=(String)session.getAttribute("unm");
+	
+	con=databasecon.getconnection();
+Statement stt=con.createStatement();
+	try
+	{
+	   con=databasecon.getconnection();
+	    st=con.createStatement();
+
+		ResultSet i=st.executeQuery("select *from time1");
+		if(i.next()){
+time=i.getString(1);
+		}
+st2=con.createStatement();
+ResultSet i1=st2.executeQuery("select  unm,role,company from user where unm='"+unm+"'");
+		if(i1.next()){
+unm1=i1.getString(1);
+role=i1.getString(2);
+cnm=i1.getString(3);
+		}
+ atrbt=unm1+","+cnm+","+role;
+	}catch(Exception e){
+		e.printStackTrace();}
+	
+
+
+	try
+	{
+	   con=databasecon.getconnection();
+	    st=con.createStatement();
+		st1=con.createStatement();
+
+ rs=st1.executeQuery("select fname, data,pkey from encfile where fid='"+fid+"' ");
+ if(rs.next()){
+	 b=rs.getBytes(2);
+	 fnm=rs.getString(1);
+	 skey=rs.getString(3);
+ }
+  rs1=st.executeQuery("select AES_DECRYPT(data,'"+skey+"') from encfile where fid='"+fid+"' ");
+ if(rs1.next()){
+		b=rs1.getBytes(1);
+ }
+	}catch(Exception e){
+		e.printStackTrace();}
+		%>
+
+
+
+ 
+
+<br><br>
+<h2>File Accessing..</h2>
+<center>
+<table>
+<tr><td> <h3><font size="" color="ff6600"></font></h3></td></tr>
+<tr>
+
+      <form  method="post"action="finalDownload.jsp">
+      
+	<td><strong>File Id</strong></td>
+	<td><input type="text" name="fid" value=<%=fid%>></td>
+	<td></td>
+</tr>
+<tr>
+	<td><strong>File Name</strong></td>
+	<td><input type="text" name="fnm" value=<%=fnm%>></td><td><input type="hidden" name="skey" value=<%=skey%>></td>
+	<td></td>
+</tr>
+<tr>
+	<td><strong>File Data ( M )</strong></td>
+	<td><textarea name="data" cols="30" rows="10"><%=new String(b)%></textarea></td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td><input type="submit" value="Download"></td>
+	<td></td>
+</tr>
+
+</table>
+</form>
+<br><br><br><br>	
+<%@ include file="Footer.html"%>

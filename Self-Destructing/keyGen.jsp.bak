@@ -1,0 +1,95 @@
+<%@ include file="AHeader.html"%>
+<%! int i=0;
+Connection con=null;
+%>
+<%@ page  import="java.sql.*,databaseconnection.databasecon"%>
+
+
+
+<br><br><br><br>
+
+<center>
+
+
+<%@ page import="java.io.*"%>
+<%!String  thisLine = null;
+StringBuffer sb1=null;
+String rid=null;
+String data=null,fid1=null,fname1=null,eid=null,cname=null,cnm=null;
+Blob b1=null;
+byte b[]=null;
+%>
+
+ <%  
+
+// -->
+try{
+
+//Statement st=con.createStatement();
+  con=databasecon.getconnection();
+Statement st1=con.createStatement();
+Statement st2=con.createStatement();
+Statement st=con.createStatement();
+Statement st3=con.createStatement();
+
+%><br><font size="+2" color="ff6600"><strong>KeyGen(MSK,  r, T ')</font><br><br><table align="center"  border="4"  bordercolor="orange" cellpadding="20" cellspacing="10">
+<tr>
+	<th><font color="003399" size="" ><strong>File ID</strong></th>
+	<th><font color="003399" size="3" ><strong>DataUser</strong></th>
+	<th><font color="003399" size="3" ><strong>Attribute</strong></th>
+	<th><font color="003399" size="3" ><strong>Time</strong></th>
+	<th><font color="003399" size="3" ><strong>KeyGeneration</strong></th>
+	
+</tr>
+
+<%
+if(request.getParameter("msg")!=null){
+	out.println("<script>alert('Private Key was Generated and Sent to DataUser')</script>");
+
+}
+
+
+Statement st4=con.createStatement();
+					 ResultSet r3=st3.executeQuery("select *from keygen");
+					 if(r3.next())
+		                 {%>
+                          <td><font size="4" color="339900"><strong><%=r3.getString(1)%></td>
+						  <td><font size="4" color="339900"><strong><%=r3.getString(2)%></td>
+						  <td><font size="4" color="339900"><strong><%=r3.getString(4)%></td>
+						  <td><font size="4" color="339900"><strong><%=r3.getString(3)%></td>
+	<td><font size="4" color="339900"><strong><a href="keygen1.jsp?fid=<%=r3.getString(1)%>&unm=<%=r3.getString(2)%>&atrbt=<%=r3.getString(4)%>&time=<%=r3.getString(3)%>">KeyGen</td>
+	</td></tr>               
+	  <%      
+
+	}
+				
+                          
+	        
+
+
+	//st4.executeUpdate("delete from temp");
+
+%></table>
+<%
+}catch(Exception e){
+	e.printStackTrace();
+}
+
+%>
+
+<tr>
+	<!-- <td><strong>File Name</strong></td><td></td>
+	<td><input type="text" name="fnm"></td>
+	<td></td> -->
+</tr>
+
+<tr>
+	<td></td><td></td>
+	
+	<td></td>
+</tr>
+</form>
+</table>
+
+<br><br><br><br>	<br><br><br><br><br><br><br><br><br><br>
+<%@ include file="Footer.html"%>

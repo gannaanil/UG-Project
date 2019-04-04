@@ -1,0 +1,72 @@
+<%@ include file="OHeader.html"%>
+  
+<%@ page import="java.io.*"%>
+<%! int i=0;%>
+<%!String  thisLine = null;
+StringBuffer sb1=null;
+String filename=null,pkey=null,fid=null,fnm=null,fnm1=null,unm;
+%>
+<%@ page  import="java.sql.*,databaseconnection.databasecon"%>
+<% 
+	Connection con=null;
+	Statement st=null;
+	ResultSet rs=null;
+	String fid = request.getParameter("fid");
+		String unm = request.getParameter("unm");
+String fnm= request.getParameter("fnm");
+StringBuffer fdata=(StringBuffer)session.getAttribute("fdata");
+
+	try
+	{
+	   con=databasecon.getconnection();
+	    st=con.createStatement();
+		st.executeUpdate("delete from request");
+		int i=st.executeUpdate("insert into request values('"+unm+"')");
+		if(i>0){
+			out.println("<script>alert('Request Sent to Authority')</script>");
+		}
+	}catch(Exception e){
+		e.printStackTrace();}
+		%>
+
+
+
+ 
+
+<br><br>
+<h2><font size="" color="ff6600">FileUploading...</font></h2>
+<center>
+<table>
+<tr><td> <h3><font size="" color="ff6600"></font></h3></td></tr>
+<tr>
+
+      <form  method="post"action="upload3.jsp">
+      
+	<td><strong>File Id</strong></td>
+	<td><input type="text" name="fid" value=<%=Integer.parseInt(fid)%>></td>
+	<td></td>
+</tr>
+<tr>
+	<td><strong>File Name</strong></td>
+	<td><input type="text" name="fnm" value=<%=fnm%>></td>
+	<td></td>
+</tr>
+<tr>
+	<td><strong>File Data</strong></td>
+	<td><textarea name="data" cols="30" rows="10"><%=fdata%></textarea></td>
+	<td></td>
+</tr>
+<tr>
+	<td><strong>Public Key</strong></td>
+	<td><input type="text" name="pkey" ><a href="GetKey.jsp?unm=<%=unm%>&fnm=<%=fnm%>&fid=<%=fid%>">GetPublicKey</a></td>
+	<td></td>
+</tr>
+</table>
+</form>
+
+<div class="clear"></div>
+    </div>
+  
+</div>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>	
+<%@ include file="Footer.html"%>
